@@ -1,0 +1,34 @@
+[project]
+name = "pcapscope"
+version = "0.1.0"
+description = "A dependency-free pcap/pcapng parser and threat analyser, written from scratch on the Python standard library."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Mannraj" }]
+requires-python = ">=3.10"
+dependencies = []
+keywords = ["pcap", "pcapng", "network-forensics", "intrusion-detection", "packet-analysis"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Security",
+    "Topic :: System :: Networking :: Monitoring",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+pcapscope = "pcapscope.cli:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+pythonpath = ["src"]

@@ -1,0 +1,263 @@
+{
+  "capture": "demo.pcapng",
+  "sha256": "635a4ecd92ac824d0b204858e3805a55c985d01ff21559723001da90ddbb8bc3",
+  "summary": {
+    "packets": 325,
+    "bytes": 25431,
+    "first_seen": 1767225600.011186,
+    "last_seen": 1767226189.285843,
+    "duration_s": 589.274657,
+    "decode_errors": 0,
+    "protocols": {
+      "dns": 180,
+      "tcp": 138,
+      "arp": 7
+    },
+    "top_talkers": [
+      {
+        "host": "10.10.0.42",
+        "bytes": 17021
+      },
+      {
+        "host": "10.10.0.23",
+        "bytes": 8116
+      },
+      {
+        "host": "10.10.0.1",
+        "bytes": 294
+      }
+    ],
+    "top_conversations": [
+      {
+        "a": "10.10.0.1",
+        "b": "10.10.0.42",
+        "protocol": "udp",
+        "service_port": 53,
+        "bytes": 13025
+      },
+      {
+        "a": "10.10.0.1",
+        "b": "10.10.0.23",
+        "protocol": "udp",
+        "service_port": 53,
+        "bytes": 4532
+      },
+      {
+        "a": "10.10.0.42",
+        "b": "203.0.113.77",
+        "protocol": "tcp",
+        "service_port": 8443,
+        "bytes": 756
+      },
+      {
+        "a": "10.10.0.23",
+        "b": "10.10.0.5",
+        "protocol": "tcp",
+        "service_port": 21,
+        "bytes": 197
+      },
+      {
+        "a": "10.10.0.23",
+        "b": "10.10.0.5",
+        "protocol": "tcp",
+        "service_port": 80,
+        "bytes": 147
+      },
+      {
+        "a": "10.10.0.42",
+        "b": "198.51.100.92",
+        "protocol": "tcp",
+        "service_port": 443,
+        "bytes": 108
+      },
+      {
+        "a": "10.10.0.42",
+        "b": "198.51.100.212",
+        "protocol": "tcp",
+        "service_port": 443,
+        "bytes": 108
+      },
+      {
+        "a": "10.10.0.23",
+        "b": "198.51.100.106",
+        "protocol": "tcp",
+        "service_port": 443,
+        "bytes": 108
+      },
+      {
+        "a": "10.10.0.23",
+        "b": "198.51.100.238",
+        "protocol": "tcp",
+        "service_port": 443,
+        "bytes": 108
+      },
+      {
+        "a": "10.10.0.42",
+        "b": "198.51.100.8",
+        "protocol": "tcp",
+        "service_port": 443,
+        "bytes": 108
+      }
+    ],
+    "top_dns_queries": [
+      {
+        "name": "www.microsoft.com",
+        "count": 27
+      },
+      {
+        "name": "www.deakin.edu.au",
+        "count": 23
+      },
+      {
+        "name": "github.com",
+        "count": 20
+      },
+      {
+        "name": "outlook.office365.com",
+        "count": 20
+      },
+      {
+        "name": "teams.microsoft.com",
+        "count": 17
+      },
+      {
+        "name": "pypi.org",
+        "count": 13
+      },
+      {
+        "name": "j4e74ygujuhal25bm62bh7a32cldv3wt622ee6bmoep2n5khxrvbmhix.0000.x.cdn-telemetry.net",
+        "count": 1
+      },
+      {
+        "name": "3t5q557webkinlakwhuuunhpa3pgixj4z7j7drgn6gqipocxp575obny.0001.x.cdn-telemetry.net",
+        "count": 1
+      },
+      {
+        "name": "5oq5xdxatyxb5nq53pf264bz47ghncgjrgua2hxi73bgyhgccmmqm4cy.0002.x.cdn-telemetry.net",
+        "count": 1
+      },
+      {
+        "name": "bfcahqvwfpeq6qczpofqsbgs6ccvyqzoukmmvtuvg4k5r635kp5bhdlh.0003.x.cdn-telemetry.net",
+        "count": 1
+      }
+    ]
+  },
+  "findings": [
+    {
+      "rule": "arp-spoof",
+      "category": "threat",
+      "severity": "high",
+      "title": "Conflicting ARP announcements for 10.10.0.1",
+      "summary": "10.10.0.1 was claimed by 2 different MAC addresses: 02:10:00:00:00:66 (6x), 02:10:00:00:00:01 (1x).",
+      "src": "10.10.0.1",
+      "dst": null,
+      "first_seen": 1767225630.0,
+      "last_seen": 1767225710.0,
+      "frames": [
+        15,
+        30,
+        35,
+        40,
+        45,
+        52,
+        57
+      ],
+      "evidence": {
+        "macs": {
+          "02:10:00:00:00:01": 1,
+          "02:10:00:00:00:66": 6
+        }
+      }
+    },
+    {
+      "rule": "cleartext-credentials",
+      "category": "threat",
+      "severity": "high",
+      "title": "FTP credentials sent in cleartext",
+      "summary": "10.10.0.23 sent a username and password to 10.10.0.5:21 over unencrypted FTP.",
+      "src": "10.10.0.23",
+      "dst": "10.10.0.5:21",
+      "first_seen": 1767225720.2,
+      "last_seen": 1767225720.4,
+      "frames": [
+        63,
+        64
+      ],
+      "evidence": {
+        "protocol": "FTP",
+        "username": "svc_backup",
+        "password_masked": "S*********!"
+      }
+    },
+    {
+      "rule": "cleartext-credentials",
+      "category": "threat",
+      "severity": "high",
+      "title": "HTTP Basic credentials sent in cleartext",
+      "summary": "10.10.0.23 sent a username and password to 10.10.0.5:80 over unencrypted HTTP Basic.",
+      "src": "10.10.0.23",
+      "dst": "10.10.0.5:80",
+      "first_seen": 1767225750.0,
+      "last_seen": 1767225750.0,
+      "frames": [
+        79
+      ],
+      "evidence": {
+        "protocol": "HTTP Basic",
+        "username": "jsmith",
+        "password_masked": "W********3"
+      }
+    },
+    {
+      "rule": "beacon",
+      "category": "threat",
+      "severity": "high",
+      "title": "Periodic connections to 203.0.113.77:8443",
+      "summary": "10.10.0.42 opened 14 connections to 203.0.113.77:8443 every 29.9s (jitter 3%).",
+      "src": "10.10.0.42",
+      "dst": "203.0.113.77",
+      "first_seen": 1767225800.385928,
+      "last_seen": 1767226189.285843,
+      "frames": [
+        102,
+        115,
+        130,
+        145,
+        160
+      ],
+      "evidence": {
+        "connections": 14,
+        "mean_interval_s": 29.92,
+        "jitter": 0.03
+      }
+    },
+    {
+      "rule": "dns-tunnel",
+      "category": "threat",
+      "severity": "medium",
+      "title": "Possible DNS tunnelling via cdn-telemetry.net",
+      "summary": "60 unique subdomains of cdn-telemetry.net queried, 60 of them long or high-entropy, from 1 client(s).",
+      "src": "10.10.0.42",
+      "dst": "cdn-telemetry.net",
+      "first_seen": 1767226000.0,
+      "last_seen": 1767226023.6,
+      "frames": [
+        197,
+        198,
+        199,
+        200,
+        203
+      ],
+      "evidence": {
+        "unique_subdomains": 60,
+        "suspicious_queries": 60,
+        "longest_examples": [
+          "gvdgq34sw4o7qsf3hipsjtgo2ewchscznluc7wormsksqpwzstjmvsgm.0010.x",
+          "capt35nuzfvjpmupzprdp5jilenex77synhbnemumzwzjszvhakqwlnk.0029.x",
+          "um4yovhjzwdxvxkzw3wdy3orclrvsr2oztx5sfci3goyc7o7pd47ffac.002d.x"
+        ]
+      }
+    }
+  ],
+  "elapsed_s": 0.014
+}

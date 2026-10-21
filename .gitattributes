@@ -1,0 +1,4 @@
+# Keep capture files byte-exact across platforms
+*.pcap binary
+*.pcapng binary
+* text=auto eol=lf
