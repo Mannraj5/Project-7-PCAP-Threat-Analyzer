@@ -7,8 +7,8 @@ dist/
 .venv/
 .pytest_cache/
 
-# Lab captures live in Project-2-Purple-Team-Lab; don't duplicate them here
-lab/
+# Lab captures live in Project-2-Purple-Team-Lab; CI checks them out here
+/lab/
 
 # Editor / local tool settings
 .vscode/

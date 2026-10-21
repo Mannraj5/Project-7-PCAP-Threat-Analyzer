@@ -1,0 +1,231 @@
+{
+  "capture": "chainB-run1.pcap",
+  "sha256": "ba30820f31069e543c84fdc587b7b2bfeb4c1a66473afe01e05fbbea4b15cf44",
+  "summary": {
+    "packets": 581,
+    "bytes": 579425,
+    "first_seen": 1786592554.370712,
+    "last_seen": 1786592883.341322,
+    "duration_s": 328.97061,
+    "decode_errors": 0,
+    "protocols": {
+      "tcp": 570,
+      "arp": 8,
+      "udp": 3
+    },
+    "top_talkers": [
+      {
+        "host": "192.168.56.10",
+        "bytes": 530953
+      },
+      {
+        "host": "192.168.56.20",
+        "bytes": 48080
+      },
+      {
+        "host": "192.168.56.1",
+        "bytes": 243
+      },
+      {
+        "host": "fe80::256b:4013:4140:453f",
+        "bytes": 149
+      }
+    ],
+    "top_conversations": [
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 5555,
+        "bytes": 495104
+      },
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 445,
+        "bytes": 78971
+      },
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 4444,
+        "bytes": 2684
+      },
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 135,
+        "bytes": 1616
+      },
+      {
+        "a": "192.168.56.20",
+        "b": "192.168.56.255",
+        "protocol": "udp",
+        "service_port": 138,
+        "bytes": 250
+      },
+      {
+        "a": "192.168.56.1",
+        "b": "192.168.56.255",
+        "protocol": "udp",
+        "service_port": 138,
+        "bytes": 243
+      },
+      {
+        "a": "fe80::256b:4013:4140:453f",
+        "b": "ff02::1:2",
+        "protocol": "udp",
+        "service_port": 546,
+        "bytes": 149
+      }
+    ],
+    "top_dns_queries": []
+  },
+  "findings": [
+    {
+      "rule": "smb-exploit",
+      "category": "threat",
+      "severity": "high",
+      "title": "MS17-010 / DoublePulsar probe against 192.168.56.20",
+      "summary": "192.168.56.10 sent 2 SMBv1 Trans2 SESSION_SETUP request(s) to 192.168.56.20 using DoublePulsar's ping Multiplex ID (65). 192.168.56.20 answered 2 time(s) without the implant's Multiplex ID - no DoublePulsar implant was present when probed.",
+      "src": "192.168.56.10",
+      "dst": "192.168.56.20",
+      "first_seen": 1786592559.40681,
+      "last_seen": 1786592680.230692,
+      "frames": [
+        27,
+        70
+      ],
+      "evidence": {
+        "requests": 2,
+        "replies": 2,
+        "implant_present": false,
+        "multiplex_ids": [
+          65
+        ]
+      }
+    },
+    {
+      "rule": "c2",
+      "category": "threat",
+      "severity": "high",
+      "title": "Session on port 5555 (common reverse-shell / ADB port)",
+      "summary": "192.168.56.20 -> 192.168.56.10:5555, 151 packets, 9,869 B sent / 476,877 B received over 141.2s.",
+      "src": "192.168.56.20",
+      "dst": "192.168.56.10",
+      "first_seen": 1786592739.336169,
+      "last_seen": 1786592880.561319,
+      "frames": [
+        418,
+        419,
+        420,
+        421,
+        422
+      ],
+      "evidence": {
+        "port": 5555,
+        "reason": "common reverse-shell / ADB port",
+        "packets": 151,
+        "bytes_client_to_server": 9869,
+        "bytes_server_to_client": 476877
+      }
+    },
+    {
+      "rule": "capture-health",
+      "category": "sensor",
+      "severity": "medium",
+      "title": "Invalid checksums on packets from 192.168.56.10 (likely checksum offload)",
+      "summary": "293 of 295 TCP/UDP/ICMP packets from 192.168.56.10 (99%) carry an invalid checksum. Bad checksums concentrated on one host are what a capture taken on that host looks like when the NIC computes checksums after capture. IDS engines that verify checksums (Snort, Suricata by default) will discard these packets unseen.",
+      "src": "192.168.56.10",
+      "dst": null,
+      "first_seen": 1786592554.370712,
+      "last_seen": 1786592880.561319,
+      "frames": [
+        1,
+        3,
+        4,
+        6,
+        7
+      ],
+      "evidence": {
+        "bad": 293,
+        "checked": 295,
+        "ratio": 0.993,
+        "remedy": "disable checksum validation (Snort: checksum_eval = 'none'; Suricata: -k none) or capture with offload off / out of band"
+      }
+    },
+    {
+      "rule": "c2",
+      "category": "threat",
+      "severity": "medium",
+      "title": "Session on port 4444 (Metasploit default handler)",
+      "summary": "192.168.56.20 -> 192.168.56.10:4444, 18 packets, 944 B sent / 768 B received over 286.5s.",
+      "src": "192.168.56.20",
+      "dst": "192.168.56.10",
+      "first_seen": 1786592570.777662,
+      "last_seen": 1786592857.232282,
+      "frames": [
+        34,
+        35,
+        36,
+        37,
+        40
+      ],
+      "evidence": {
+        "port": 4444,
+        "reason": "Metasploit default handler",
+        "packets": 18,
+        "bytes_client_to_server": 944,
+        "bytes_server_to_client": 768
+      }
+    },
+    {
+      "rule": "capture-health",
+      "category": "sensor",
+      "severity": "medium",
+      "title": "Frames larger than the Ethernet MTU (segmentation offload)",
+      "summary": "34 frames exceed 1514 bytes (largest 48,234 B), mostly from 192.168.56.10 (30), 192.168.56.20 (4). Tools reading with a default 1518-byte snaplen will truncate them and may reject them as malformed.",
+      "src": null,
+      "dst": null,
+      "first_seen": 1786592738.406967,
+      "last_seen": 1786592771.391415,
+      "frames": [
+        231,
+        234,
+        236,
+        247,
+        250
+      ],
+      "evidence": {
+        "count": 34,
+        "largest": 48234,
+        "remedy": "raise the reader's snaplen (Snort: -s 65535) or disable TSO/GSO/GRO"
+      }
+    },
+    {
+      "rule": "smbv1",
+      "category": "threat",
+      "severity": "low",
+      "title": "SMBv1 session established with 192.168.56.20",
+      "summary": "192.168.56.20 accepted an SMBv1 session setup from 192.168.56.10. SMBv1 is deprecated and is the protocol MS17-010 exploits; a modern client should negotiate SMB2/3.",
+      "src": "192.168.56.10",
+      "dst": "192.168.56.20",
+      "first_seen": 1786592554.395609,
+      "last_seen": 1786592738.393636,
+      "frames": [
+        10,
+        54,
+        85,
+        154,
+        226
+      ],
+      "evidence": {
+        "sessions": 5
+      }
+    }
+  ],
+  "elapsed_s": 0.014
+}

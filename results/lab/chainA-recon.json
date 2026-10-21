@@ -1,0 +1,214 @@
+{
+  "capture": "chainA-recon.pcap",
+  "sha256": "0b3268116a6001ec02c85b2ab569e446662bb08ee599bbf48e29fe5514d1ea38",
+  "summary": {
+    "packets": 132727,
+    "bytes": 7836341,
+    "first_seen": 1786543484.198505,
+    "last_seen": 1786543771.726252,
+    "duration_s": 287.527747,
+    "decode_errors": 0,
+    "protocols": {
+      "tcp": 132186,
+      "arp": 532,
+      "udp": 9
+    },
+    "top_talkers": [
+      {
+        "host": "192.168.56.20",
+        "bytes": 3957825
+      },
+      {
+        "host": "192.168.56.10",
+        "bytes": 3877413
+      },
+      {
+        "host": "fe80::256b:4013:4140:453f",
+        "bytes": 1043
+      },
+      {
+        "host": "192.168.56.1",
+        "bytes": 60
+      }
+    ],
+    "top_conversations": [
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 60680,
+        "bytes": 571628
+      },
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 49156,
+        "bytes": 4681
+      },
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 49152,
+        "bytes": 3720
+      },
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 49157,
+        "bytes": 3129
+      },
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 49154,
+        "bytes": 3008
+      },
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 60682,
+        "bytes": 2832
+      },
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 135,
+        "bytes": 1656
+      },
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 445,
+        "bytes": 1647
+      },
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 49153,
+        "bytes": 1602
+      },
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 139,
+        "bytes": 1324
+      }
+    ],
+    "top_dns_queries": []
+  },
+  "findings": [
+    {
+      "rule": "port-scan",
+      "category": "threat",
+      "severity": "high",
+      "title": "TCP port scan of 192.168.56.20",
+      "summary": "192.168.56.10 sent SYN probes to 65,535 distinct ports on 192.168.56.20 in 79.0s (830 ports/s); 10 answered SYN-ACK.",
+      "src": "192.168.56.10",
+      "dst": "192.168.56.20",
+      "first_seen": 1786543525.430058,
+      "last_seen": 1786543604.410932,
+      "frames": [
+        523,
+        524,
+        525,
+        526,
+        527
+      ],
+      "evidence": {
+        "ports_probed": 65535,
+        "open_ports": [
+          22,
+          135,
+          139,
+          445,
+          49152,
+          49153,
+          49154,
+          49155,
+          49156,
+          49157
+        ],
+        "duration_s": 78.981,
+        "ports_per_second": 829.8
+      }
+    },
+    {
+      "rule": "host-sweep",
+      "category": "threat",
+      "severity": "medium",
+      "title": "ARP host sweep from 192.168.56.10",
+      "summary": "192.168.56.10 probed 255 distinct addresses with ARP over 287.5s.",
+      "src": "192.168.56.10",
+      "dst": null,
+      "first_seen": 1786543484.198505,
+      "last_seen": 1786543771.725368,
+      "frames": [
+        1,
+        3,
+        4,
+        5,
+        6
+      ],
+      "evidence": {
+        "method": "ARP",
+        "hosts_probed": 255,
+        "sample_targets": [
+          "192.168.56.0",
+          "192.168.56.1",
+          "192.168.56.2",
+          "192.168.56.3",
+          "192.168.56.4",
+          "192.168.56.5",
+          "192.168.56.6",
+          "192.168.56.7",
+          "192.168.56.8",
+          "192.168.56.9",
+          "192.168.56.11",
+          "192.168.56.12",
+          "192.168.56.13",
+          "192.168.56.14",
+          "192.168.56.15",
+          "192.168.56.16",
+          "192.168.56.17",
+          "192.168.56.18",
+          "192.168.56.19",
+          "192.168.56.20"
+        ]
+      }
+    },
+    {
+      "rule": "capture-health",
+      "category": "sensor",
+      "severity": "medium",
+      "title": "Invalid checksums on packets from 192.168.56.10 (likely checksum offload)",
+      "summary": "393 of 66,297 TCP/UDP/ICMP packets from 192.168.56.10 (1%) carry an invalid checksum. Bad checksums concentrated on one host are what a capture taken on that host looks like when the NIC computes checksums after capture. IDS engines that verify checksums (Snort, Suricata by default) will discard these packets unseen.",
+      "src": "192.168.56.10",
+      "dst": null,
+      "first_seen": 1786543526.352379,
+      "last_seen": 1786543766.509436,
+      "frames": [
+        1063,
+        131944,
+        131945,
+        131947,
+        131949
+      ],
+      "evidence": {
+        "bad": 393,
+        "checked": 66297,
+        "ratio": 0.006,
+        "remedy": "disable checksum validation (Snort: checksum_eval = 'none'; Suricata: -k none) or capture with offload off / out of band"
+      }
+    }
+  ],
+  "elapsed_s": 2.411
+}

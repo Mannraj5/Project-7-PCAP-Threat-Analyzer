@@ -1,0 +1,314 @@
+{
+  "capture": "chainA-run1.pcap",
+  "sha256": "7f0083762bf4012d37e3288a3e9dc3d6c3f3324b70aa3442aacbb3e67f50022b",
+  "summary": {
+    "packets": 134478,
+    "bytes": 9289242,
+    "first_seen": 1786543484.198505,
+    "last_seen": 1786591710.014272,
+    "duration_s": 48225.815767,
+    "decode_errors": 0,
+    "protocols": {
+      "tcp": 132507,
+      "arp": 562,
+      "dns": 368,
+      "icmpv6": 358,
+      "udp": 352,
+      "ipv4": 331
+    },
+    "top_talkers": [
+      {
+        "host": "192.168.56.10",
+        "bytes": 4972133
+      },
+      {
+        "host": "192.168.56.20",
+        "bytes": 4096238
+      },
+      {
+        "host": "192.168.56.1",
+        "bytes": 106008
+      },
+      {
+        "host": "fe80::49f0:4046:2879:1ad4",
+        "bytes": 100087
+      },
+      {
+        "host": "fe80::256b:4013:4140:453f",
+        "bytes": 13650
+      },
+      {
+        "host": "fe80::7b8:9c3e:8aab:7135",
+        "bytes": 868
+      },
+      {
+        "host": "0.0.0.0",
+        "bytes": 180
+      },
+      {
+        "host": "::",
+        "bytes": 78
+      }
+    ],
+    "top_conversations": [
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 4444,
+        "bytes": 1210096
+      },
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 60680,
+        "bytes": 571628
+      },
+      {
+        "a": "fe80::49f0:4046:2879:1ad4",
+        "b": "ff02::c",
+        "protocol": "udp",
+        "service_port": 3702,
+        "bytes": 50908
+      },
+      {
+        "a": "192.168.56.1",
+        "b": "239.255.255.250",
+        "protocol": "udp",
+        "service_port": 3702,
+        "bytes": 49368
+      },
+      {
+        "a": "192.168.56.1",
+        "b": "192.168.56.255",
+        "protocol": "udp",
+        "service_port": 138,
+        "bytes": 16281
+      },
+      {
+        "a": "fe80::256b:4013:4140:453f",
+        "b": "ff02::1:2",
+        "protocol": "udp",
+        "service_port": 546,
+        "bytes": 10430
+      },
+      {
+        "a": "fe80::49f0:4046:2879:1ad4",
+        "b": "ff02::1:3",
+        "protocol": "udp",
+        "service_port": 5355,
+        "bytes": 9947
+      },
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 80,
+        "bytes": 9022
+      },
+      {
+        "a": "fe80::49f0:4046:2879:1ad4",
+        "b": "ff02::fb",
+        "protocol": "udp",
+        "service_port": 5353,
+        "bytes": 7892
+      },
+      {
+        "a": "192.168.56.1",
+        "b": "224.0.0.252",
+        "protocol": "udp",
+        "service_port": 5355,
+        "bytes": 7687
+      }
+    ],
+    "top_dns_queries": [
+      {
+        "name": "mannraj5",
+        "count": 220
+      },
+      {
+        "name": "_googlecast._tcp.local",
+        "count": 42
+      },
+      {
+        "name": "mannraj5._dosvc._tcp.local",
+        "count": 24
+      },
+      {
+        "name": "appassets.local",
+        "count": 20
+      },
+      {
+        "name": "isatap",
+        "count": 20
+      },
+      {
+        "name": "ie8win7",
+        "count": 8
+      },
+      {
+        "name": "_dosvc._tcp.local",
+        "count": 6
+      },
+      {
+        "name": "appassets",
+        "count": 6
+      }
+    ]
+  },
+  "findings": [
+    {
+      "rule": "port-scan",
+      "category": "threat",
+      "severity": "high",
+      "title": "TCP port scan of 192.168.56.20",
+      "summary": "192.168.56.10 sent SYN probes to 65,535 distinct ports on 192.168.56.20 in 79.0s (830 ports/s); 10 answered SYN-ACK.",
+      "src": "192.168.56.10",
+      "dst": "192.168.56.20",
+      "first_seen": 1786543525.430058,
+      "last_seen": 1786543604.410932,
+      "frames": [
+        523,
+        524,
+        525,
+        526,
+        527
+      ],
+      "evidence": {
+        "ports_probed": 65535,
+        "open_ports": [
+          22,
+          135,
+          139,
+          445,
+          49152,
+          49153,
+          49154,
+          49155,
+          49156,
+          49157
+        ],
+        "duration_s": 78.981,
+        "ports_per_second": 829.8
+      }
+    },
+    {
+      "rule": "c2",
+      "category": "threat",
+      "severity": "high",
+      "title": "Session on port 4444 (Metasploit default handler)",
+      "summary": "192.168.56.20 -> 192.168.56.10:4444, 303 packets, 116,010 B sent / 1,077,168 B received over 382.5s.",
+      "src": "192.168.56.20",
+      "dst": "192.168.56.10",
+      "first_seen": 1786591279.730047,
+      "last_seen": 1786591662.184293,
+      "frames": [
+        134137,
+        134138,
+        134139,
+        134140,
+        134141
+      ],
+      "evidence": {
+        "port": 4444,
+        "reason": "Metasploit default handler",
+        "packets": 303,
+        "bytes_client_to_server": 116010,
+        "bytes_server_to_client": 1077168
+      }
+    },
+    {
+      "rule": "host-sweep",
+      "category": "threat",
+      "severity": "medium",
+      "title": "ARP host sweep from 192.168.56.10",
+      "summary": "192.168.56.10 probed 255 distinct addresses with ARP over 48057.9s.",
+      "src": "192.168.56.10",
+      "dst": null,
+      "first_seen": 1786543484.198505,
+      "last_seen": 1786591542.092975,
+      "frames": [
+        1,
+        3,
+        4,
+        5,
+        6
+      ],
+      "evidence": {
+        "method": "ARP",
+        "hosts_probed": 255,
+        "sample_targets": [
+          "192.168.56.0",
+          "192.168.56.1",
+          "192.168.56.2",
+          "192.168.56.3",
+          "192.168.56.4",
+          "192.168.56.5",
+          "192.168.56.6",
+          "192.168.56.7",
+          "192.168.56.8",
+          "192.168.56.9",
+          "192.168.56.11",
+          "192.168.56.12",
+          "192.168.56.13",
+          "192.168.56.14",
+          "192.168.56.15",
+          "192.168.56.16",
+          "192.168.56.17",
+          "192.168.56.18",
+          "192.168.56.19",
+          "192.168.56.20"
+        ]
+      }
+    },
+    {
+      "rule": "capture-health",
+      "category": "sensor",
+      "severity": "medium",
+      "title": "Invalid checksums on packets from 192.168.56.10 (likely checksum offload)",
+      "summary": "565 of 66,469 TCP/UDP/ICMP packets from 192.168.56.10 (1%) carry an invalid checksum. Bad checksums concentrated on one host are what a capture taken on that host looks like when the NIC computes checksums after capture. IDS engines that verify checksums (Snort, Suricata by default) will discard these packets unseen.",
+      "src": "192.168.56.10",
+      "dst": null,
+      "first_seen": 1786543526.352379,
+      "last_seen": 1786591662.184293,
+      "frames": [
+        1063,
+        131944,
+        131945,
+        131947,
+        131949
+      ],
+      "evidence": {
+        "bad": 565,
+        "checked": 66469,
+        "ratio": 0.009,
+        "remedy": "disable checksum validation (Snort: checksum_eval = 'none'; Suricata: -k none) or capture with offload off / out of band"
+      }
+    },
+    {
+      "rule": "capture-health",
+      "category": "sensor",
+      "severity": "medium",
+      "title": "Frames larger than the Ethernet MTU (segmentation offload)",
+      "summary": "68 frames exceed 1514 bytes (largest 32,822 B), mostly from 192.168.56.10 (59), 192.168.56.20 (9). Tools reading with a default 1518-byte snaplen will truncate them and may reject them as malformed.",
+      "src": null,
+      "dst": null,
+      "first_seen": 1786591270.234669,
+      "last_seen": 1786591660.091029,
+      "frames": [
+        134130,
+        134141,
+        134142,
+        134144,
+        134145
+      ],
+      "evidence": {
+        "count": 68,
+        "largest": 32822,
+        "remedy": "raise the reader's snaplen (Snort: -s 65535) or disable TSO/GSO/GRO"
+      }
+    }
+  ],
+  "elapsed_s": 2.619
+}

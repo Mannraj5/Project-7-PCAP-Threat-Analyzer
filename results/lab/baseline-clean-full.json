@@ -1,0 +1,168 @@
+{
+  "capture": "baseline-clean-full.pcap",
+  "sha256": "96ed0c0f0a32f104dcdeddb60415189d4213bbe703a058b0ee5aef1b31b2880e",
+  "summary": {
+    "packets": 9092,
+    "bytes": 4406245,
+    "first_seen": 1786540914.14908,
+    "last_seen": 1786541890.638695,
+    "duration_s": 976.489615,
+    "decode_errors": 0,
+    "protocols": {
+      "tcp": 6010,
+      "icmp": 3003,
+      "udp": 49,
+      "arp": 26,
+      "icmpv6": 4
+    },
+    "top_talkers": [
+      {
+        "host": "192.168.56.10",
+        "bytes": 3273434
+      },
+      {
+        "host": "192.168.56.20",
+        "bytes": 1118238
+      },
+      {
+        "host": "fe80::49f0:4046:2879:1ad4",
+        "bytes": 7981
+      },
+      {
+        "host": "fe80::256b:4013:4140:453f",
+        "bytes": 5982
+      },
+      {
+        "host": "192.168.56.1",
+        "bytes": 486
+      },
+      {
+        "host": "fe80::7b8:9c3e:8aab:7135",
+        "bytes": 124
+      }
+    ],
+    "top_conversations": [
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 80,
+        "bytes": 4071632
+      },
+      {
+        "a": "192.168.56.10",
+        "b": "192.168.56.20",
+        "protocol": "tcp",
+        "service_port": 445,
+        "bytes": 19949
+      },
+      {
+        "a": "fe80::256b:4013:4140:453f",
+        "b": "fe80::49f0:4046:2879:1ad4",
+        "protocol": "udp",
+        "service_port": 3702,
+        "bytes": 5224
+      },
+      {
+        "a": "fe80::256b:4013:4140:453f",
+        "b": "fe80::49f0:4046:2879:1ad4",
+        "protocol": "tcp",
+        "service_port": 5357,
+        "bytes": 4095
+      },
+      {
+        "a": "fe80::256b:4013:4140:453f",
+        "b": "ff02::1:2",
+        "protocol": "udp",
+        "service_port": 546,
+        "bytes": 2086
+      },
+      {
+        "a": "fe80::256b:4013:4140:453f",
+        "b": "ff02::c",
+        "protocol": "udp",
+        "service_port": 3702,
+        "bytes": 1372
+      },
+      {
+        "a": "192.168.56.20",
+        "b": "239.255.255.250",
+        "protocol": "udp",
+        "service_port": 3702,
+        "bytes": 1332
+      },
+      {
+        "a": "fe80::256b:4013:4140:453f",
+        "b": "ff02::c",
+        "protocol": "udp",
+        "service_port": 1900,
+        "bytes": 1014
+      },
+      {
+        "a": "192.168.56.20",
+        "b": "192.168.56.255",
+        "protocol": "udp",
+        "service_port": 138,
+        "bytes": 959
+      },
+      {
+        "a": "192.168.56.20",
+        "b": "239.255.255.250",
+        "protocol": "udp",
+        "service_port": 1900,
+        "bytes": 930
+      }
+    ],
+    "top_dns_queries": []
+  },
+  "findings": [
+    {
+      "rule": "capture-health",
+      "category": "sensor",
+      "severity": "medium",
+      "title": "Invalid checksums on packets from 192.168.56.10 (likely checksum offload)",
+      "summary": "2,368 of 3,880 TCP/UDP/ICMP packets from 192.168.56.10 (61%) carry an invalid checksum. Bad checksums concentrated on one host are what a capture taken on that host looks like when the NIC computes checksums after capture. IDS engines that verify checksums (Snort, Suricata by default) will discard these packets unseen.",
+      "src": "192.168.56.10",
+      "dst": null,
+      "first_seen": 1786540978.37834,
+      "last_seen": 1786541885.598322,
+      "frames": [
+        538,
+        541,
+        542,
+        545,
+        552
+      ],
+      "evidence": {
+        "bad": 2368,
+        "checked": 3880,
+        "ratio": 0.61,
+        "remedy": "disable checksum validation (Snort: checksum_eval = 'none'; Suricata: -k none) or capture with offload off / out of band"
+      }
+    },
+    {
+      "rule": "capture-health",
+      "category": "sensor",
+      "severity": "medium",
+      "title": "Frames larger than the Ethernet MTU (segmentation offload)",
+      "summary": "831 frames exceed 1514 bytes (largest 3,437 B), mostly from 192.168.56.10 (829), fe80::49f0:4046:2879:1ad4 (1), 192.168.56.20 (1). Tools reading with a default 1518-byte snaplen will truncate them and may reject them as malformed.",
+      "src": null,
+      "dst": null,
+      "first_seen": 1786540978.380116,
+      "last_seen": 1786541572.948996,
+      "frames": [
+        542,
+        552,
+        563,
+        571,
+        581
+      ],
+      "evidence": {
+        "count": 831,
+        "largest": 3437,
+        "remedy": "raise the reader's snaplen (Snort: -s 65535) or disable TSO/GSO/GRO"
+      }
+    }
+  ],
+  "elapsed_s": 0.17
+}

@@ -64,11 +64,11 @@ def main(argv: list[str] | None = None) -> int:
         print(to_terminal(result))
         if args.report:
             path = _output_path(args.report, capture, ".md", many)
-            path.write_text(to_markdown(result), encoding="utf-8")
+            path.write_text(to_markdown(result), encoding="utf-8", newline="\n")
             print(f"  report -> {path}")
         if args.json:
             path = _output_path(args.json, capture, ".json", many)
-            path.write_text(to_json(result), encoding="utf-8")
+            path.write_text(to_json(result), encoding="utf-8", newline="\n")
             print(f"  json   -> {path}")
 
     if args.fail_on and worst >= SEVERITIES.index(args.fail_on):

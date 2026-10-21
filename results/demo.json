@@ -252,12 +252,12 @@
         "unique_subdomains": 60,
         "suspicious_queries": 60,
         "longest_examples": [
-          "gvdgq34sw4o7qsf3hipsjtgo2ewchscznluc7wormsksqpwzstjmvsgm.0010.x",
-          "capt35nuzfvjpmupzprdp5jilenex77synhbnemumzwzjszvhakqwlnk.0029.x",
-          "um4yovhjzwdxvxkzw3wdy3orclrvsr2oztx5sfci3goyc7o7pd47ffac.002d.x"
+          "inhokjgyf7em6axvwvie25kxn7bunphhinboo6f44efyfrdcaqyeoksn.0011.x",
+          "wvk2iexarx5uskzp3iinstj4kf27zmdoowtnefhvngulomqwbd3g4ztm.000f.x",
+          "fkzb2lty66k3iyryiqit57ibbdeb52ydvnnfoujuvdc2fifsktjb4dfs.002b.x"
         ]
       }
     }
   ],
-  "elapsed_s": 0.014
+  "elapsed_s": 0.015
 }
